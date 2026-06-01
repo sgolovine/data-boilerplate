@@ -9,4 +9,3 @@ export type TemplateRecord = {
   updatedAt: string;
   summary: string;
 };
-

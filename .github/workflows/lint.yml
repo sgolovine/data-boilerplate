@@ -1,4 +1,4 @@
-name: Lint
+name: Lint and Format
 
 on:
   pull_request:
@@ -26,5 +26,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
+      - name: Lint, format, and typecheck
         run: npm run lint

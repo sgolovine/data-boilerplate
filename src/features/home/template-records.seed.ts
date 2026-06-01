@@ -288,8 +288,7 @@ export const templateRecordsSeed: TemplateRecord[] = [
     category: "Healthcare",
     impactScore: 80,
     updatedAt: "2026-04-03",
-    summary:
-      "Blocked while barcode scanner export format is being normalized.",
+    summary: "Blocked while barcode scanner export format is being normalized.",
   },
   {
     id: "REC-1025",
@@ -436,4 +435,3 @@ export const templateRecordsSeed: TemplateRecord[] = [
       "Track proposed ordinances by topic, sponsor, hearings, and public comments.",
   },
 ];
-

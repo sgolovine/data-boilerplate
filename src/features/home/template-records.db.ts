@@ -1,10 +1,9 @@
 import Dexie, { type Table } from "dexie";
-
+import type { TemplateRecord } from "./template-records";
 import {
   templateRecordsSeed,
   templateRecordsSeedVersion,
 } from "./template-records.seed";
-import type { TemplateRecord } from "./template-records";
 
 type SeedMeta = {
   key: string;
@@ -64,7 +63,9 @@ async function seedTemplateRecords(database: TemplateRecordsDatabase) {
 
 export async function getSeededTemplateRecordsDatabase() {
   if (typeof indexedDB === "undefined") {
-    throw new Error("Dexie requires IndexedDB and can only run in the browser.");
+    throw new Error(
+      "Dexie requires IndexedDB and can only run in the browser.",
+    );
   }
 
   const database = getTemplateRecordsDatabase();

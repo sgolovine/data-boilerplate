@@ -1,6 +1,6 @@
-import * as React from "react";
 import { CheckIcon, ChevronRightIcon } from "lucide-react";
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
+import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -14,7 +14,10 @@ function DropdownMenuTrigger({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>) {
   return (
-    <DropdownMenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
+    <DropdownMenuPrimitive.Trigger
+      data-slot="dropdown-menu-trigger"
+      {...props}
+    />
   );
 }
 

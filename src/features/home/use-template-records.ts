@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-
-import { getSeededTemplateRecordsDatabase } from "./template-records.db";
 import type { TemplateRecord } from "./template-records";
+import { getSeededTemplateRecordsDatabase } from "./template-records.db";
 
 type TemplateRecordsState = {
   error: Error | null;

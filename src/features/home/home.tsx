@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { ArrowDownAZ, ArrowUpAZ, ChevronsUpDown, Search } from "lucide-react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import fuzzysort from "fuzzysort";
+import { ArrowDownAZ, ArrowUpAZ, ChevronsUpDown, Search } from "lucide-react";
+import { type ReactNode, useMemo, useRef, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -132,12 +132,10 @@ export function Home() {
   const { error, isLoading, records } = useTemplateRecords();
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(pageSize);
-  const [sort, setSort] = useState<{ key: SortKey; direction: SortDirection }>(
-    {
-      key: "updatedAt",
-      direction: "desc",
-    },
-  );
+  const [sort, setSort] = useState<{ key: SortKey; direction: SortDirection }>({
+    key: "updatedAt",
+    direction: "desc",
+  });
 
   const filteredRecords = useMemo(() => {
     const trimmedQuery = query.trim();
@@ -161,7 +159,6 @@ export function Home() {
   }, [filteredRecords, sort]);
 
   const visibleRecords = sortedRecords.slice(0, visibleCount);
-  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Virtual is the requested scrolling engine.
   const rowVirtualizer = useVirtualizer({
     count: visibleRecords.length,
     estimateSize: () => 60,
@@ -170,10 +167,10 @@ export function Home() {
   });
   const virtualRows = rowVirtualizer.getVirtualItems();
 
-  useEffect(() => {
+  function resetRecordsView() {
     setVisibleCount(pageSize);
     scrollParentRef.current?.scrollTo({ top: 0 });
-  }, [query, sort]);
+  }
 
   function loadMoreIfNeeded() {
     const scrollElement = scrollParentRef.current;
@@ -195,6 +192,7 @@ export function Home() {
   }
 
   function updateSort(key: SortKey) {
+    resetRecordsView();
     setSort((current) => {
       if (current.key !== key) {
         return { key, direction: "asc" };
@@ -205,6 +203,11 @@ export function Home() {
         direction: current.direction === "asc" ? "desc" : "asc",
       };
     });
+  }
+
+  function updateQuery(value: string) {
+    resetRecordsView();
+    setQuery(value);
   }
 
   return (
@@ -231,7 +234,7 @@ export function Home() {
               <Input
                 id="record-search"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => updateQuery(event.target.value)}
                 placeholder="Search records"
                 className="pl-8"
               />
@@ -317,7 +320,10 @@ export function Home() {
                     {columns.map((column) => (
                       <TableCell
                         key={column.key}
-                        className={cn("flex h-[60px] items-center", column.className)}
+                        className={cn(
+                          "flex h-[60px] items-center",
+                          column.className,
+                        )}
                       >
                         {column.render
                           ? column.render(record)
