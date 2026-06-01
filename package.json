@@ -8,8 +8,8 @@
     "build": "vite build && rm -rf dist/client/data && cp -R data dist/client/data",
     "format": "biome format --write .",
     "format:check": "biome format .",
-    "lint": "biome check . && tsc --noEmit",
-    "lint:fix": "biome check --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
